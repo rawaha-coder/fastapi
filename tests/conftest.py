@@ -13,7 +13,9 @@ from app import models
 from alembic import command
 
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}_test'
+
+
+SQLALCHEMY_DATABASE_URL = f'postgresql+psycopg://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}_test'
 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -48,8 +50,8 @@ def client(session):
 
 @pytest.fixture
 def test_user2(client):
-    user_data = {"email": "sanjeev123@gmail.com",
-                 "password": "password123"}
+    user_data = {"email": "sara@gmail.com",
+                 "password": "password"}
     res = client.post("/users/", json=user_data)
 
     assert res.status_code == 201
@@ -61,7 +63,7 @@ def test_user2(client):
 
 @pytest.fixture
 def test_user(client):
-    user_data = {"email": "sanjeev@gmail.com",
+    user_data = {"email": "hajar@gmail.com",
                  "password": "password123"}
     res = client.post("/users/", json=user_data)
 
@@ -115,8 +117,7 @@ def test_posts(test_user, session, test_user2):
     posts = list(post_map)
 
     session.add_all(posts)
-    # session.add_all([models.Post(title="first title", content="first content", owner_id=test_user['id']),
-    #                 models.Post(title="2nd title", content="2nd content", owner_id=test_user['id']), models.Post(title="3rd title", content="3rd content", owner_id=test_user['id'])])
+    
     session.commit()
 
     posts = session.query(models.Post).all()
