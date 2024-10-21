@@ -1,16 +1,6 @@
 name: Build and Deploy Code
 
-on:
-    push:
-        branches:
-            - "main"
-            - "prod"
-            - "delpoy"
-    pull_request:
-        branches:
-            - "tests"
-            - "bugs"
-            - "fix"
+on: [push, pull_request]
 
 jobs:
     job1:
