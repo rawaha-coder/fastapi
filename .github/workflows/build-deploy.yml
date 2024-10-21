@@ -1,0 +1,23 @@
+name: Build and Deploy Code
+
+on:
+    push:
+        branches:
+            - "main"
+            - "prod"
+            - "delpoy"
+    pull_request:
+        branches:
+            - "tests"
+            - "bugs"
+            - "fix"
+
+jobs:
+    job1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: pulling git repo
+              uses: actions/checkout@v2
+            - name: say hey to Github
+              uses: echo "Hello DevOps"
+
